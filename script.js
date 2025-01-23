@@ -64,7 +64,7 @@ const fetchPrayerTimes = async (latitude, longitude) => {
         
         const data = await response.json();
         updatePrayerTimesUI(data.data.timings);
-        updateLocationInfo(data.data);
+        updateLocationInfo(latitude, longitude, data.data);
         calculateNextPrayer(data.data.timings);
     } catch (error) {
         handlePrayerTimesError(error);
@@ -84,9 +84,29 @@ const updatePrayerTimesUI = (timings) => {
     prayerTimesElement.style.display = "block";
 };
 
-const updateLocationInfo = (data) => {
-    if (cityElement && data.meta && data.meta.timezone) {
-        cityElement.textContent = `Location: ${data.meta.timezone}`;
+const updateLocationInfo = async (latitude, longitude, data) => {
+    if (cityElement) {
+        try {
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            );
+            const locationData = await response.json();
+            
+            const city = locationData.address.city || 
+                         locationData.address.town || 
+                         locationData.address.county || 
+                         'Unknown Location';
+            const state = locationData.address.state || 
+                          locationData.address.county || 
+                          'Unknown State';
+            
+            cityElement.textContent = `Location: ${city}, ${state}`;
+        } catch (error) {
+            // Fallback to API timezone if reverse geocoding fails
+            cityElement.textContent = data.meta && data.meta.timezone 
+                ? `Location: ${data.meta.timezone}` 
+                : 'Location: Unable to determine';
+        }
     }
 };
 
@@ -131,14 +151,13 @@ const getUserLocation = () => {
                     alert("An unknown error occurred.");
                 }
 
-                handlePrayerTimesError(error);  // Call your existing error handler
+                handlePrayerTimesError(error);
             }
         );
     } else {
         handlePrayerTimesError(new Error("Geolocation not supported"));
     }
 };
-
 
 const init = () => {
     setCurrentDate();
