@@ -88,7 +88,7 @@ const updateLocationInfo = async (latitude, longitude, data) => {
     if (cityElement) {
         try {
             const response = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`
             );
             const locationData = await response.json();
             
@@ -99,10 +99,11 @@ const updateLocationInfo = async (latitude, longitude, data) => {
             const state = locationData.address.state || 
                           locationData.address.county || 
                           'Unknown State';
+            const country = locationData.address.country || 'Unknown Country';
             
-            cityElement.textContent = `Location: ${city}, ${state}`;
+            cityElement.textContent = `Location: ${city}, ${state}, ${country}`;
         } catch (error) {
-            // Fallback to API timezone if reverse geocoding fails
+            console.warn("Reverse geocoding failed:", error);
             cityElement.textContent = data.meta && data.meta.timezone 
                 ? `Location: ${data.meta.timezone}` 
                 : 'Location: Unable to determine';
@@ -134,12 +135,6 @@ const setCurrentDate = () => {
 };
 
 const getUserLocation = () => {
-    const defaultLocations = [
-        { name: 'New York', latitude: 40.7128, longitude: -74.0060 },
-        { name: 'Los Angeles', latitude: 34.0522, longitude: -118.2437 },
-        { name: 'Chicago', latitude: 41.8781, longitude: -87.6298 }
-    ];
-
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -148,10 +143,23 @@ const getUserLocation = () => {
             },
             (error) => {
                 console.warn("Geolocation error:", error.message);
-                // Use first default location as fallback
-                const fallbackLocation = defaultLocations[0];
-                cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
-                fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
+                // Use IP geolocation as a more reliable fallback
+                fetch('https://ipapi.co/json/')
+                    .then(response => response.json())
+                    .then(data => {
+                        fetchPrayerTimes(data.latitude, data.longitude);
+                        cityElement.textContent = `Location: ${data.city}, ${data.region}, ${data.country_name}`;
+                    })
+                    .catch(ipError => {
+                        console.error("IP geolocation failed:", ipError);
+                        const fallbackLocation = { 
+                            name: 'New York', 
+                            latitude: 40.7128, 
+                            longitude: -74.0060 
+                        };
+                        cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
+                        fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
+                    });
             },
             {
                 enableHighAccuracy: true,
@@ -160,9 +168,23 @@ const getUserLocation = () => {
             }
         );
     } else {
-        const fallbackLocation = defaultLocations[0];
-        cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
-        fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
+        // Fallback to IP-based geolocation if browser doesn't support geolocation
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                fetchPrayerTimes(data.latitude, data.longitude);
+                cityElement.textContent = `Location: ${data.city}, ${data.region}, ${data.country_name}`;
+            })
+            .catch(error => {
+                console.error("IP geolocation failed:", error);
+                const fallbackLocation = { 
+                    name: 'New York', 
+                    latitude: 40.7128, 
+                    longitude: -74.0060 
+                };
+                cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
+                fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
+            });
     }
 };
 
