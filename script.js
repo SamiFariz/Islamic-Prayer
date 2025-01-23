@@ -118,16 +118,27 @@ const getUserLocation = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
-                fetchPrayerTimes(latitude, longitude);
+                fetchPrayerTimes(latitude, longitude);  
             },
             (error) => {
-                handlePrayerTimesError(error);
+                if (error.code === error.PERMISSION_DENIED) {
+                    alert("You denied location access. Some features may not work.");
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    alert("Location information is unavailable.");
+                } else if (error.code === error.TIMEOUT) {
+                    alert("The request to get your location timed out.");
+                } else {
+                    alert("An unknown error occurred.");
+                }
+
+                handlePrayerTimesError(error);  // Call your existing error handler
             }
         );
     } else {
         handlePrayerTimesError(new Error("Geolocation not supported"));
     }
 };
+
 
 const init = () => {
     setCurrentDate();
