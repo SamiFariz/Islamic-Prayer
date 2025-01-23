@@ -134,6 +134,12 @@ const setCurrentDate = () => {
 };
 
 const getUserLocation = () => {
+    const defaultLocations = [
+        { name: 'New York', latitude: 40.7128, longitude: -74.0060 },
+        { name: 'Los Angeles', latitude: 34.0522, longitude: -118.2437 },
+        { name: 'Chicago', latitude: 41.8781, longitude: -87.6298 }
+    ];
+
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -141,21 +147,22 @@ const getUserLocation = () => {
                 fetchPrayerTimes(latitude, longitude);  
             },
             (error) => {
-                if (error.code === error.PERMISSION_DENIED) {
-                    alert("You denied location access. Some features may not work.");
-                } else if (error.code === error.POSITION_UNAVAILABLE) {
-                    alert("Location information is unavailable.");
-                } else if (error.code === error.TIMEOUT) {
-                    alert("The request to get your location timed out.");
-                } else {
-                    alert("An unknown error occurred.");
-                }
-
-                handlePrayerTimesError(error);
+                console.warn("Geolocation error:", error.message);
+                // Use first default location as fallback
+                const fallbackLocation = defaultLocations[0];
+                cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
+                fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
             }
         );
     } else {
-        handlePrayerTimesError(new Error("Geolocation not supported"));
+        const fallbackLocation = defaultLocations[0];
+        cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
+        fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
     }
 };
 
