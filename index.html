@@ -1,60 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islamic Prayer Times</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Islamic Prayer Times</title>
+ <link rel="stylesheet" href="style.css">
+ <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Islamic Prayer Times</h1>
-        <p id="user-city">Location: Loading...</p>
-        <p id="current-date">Date: Loading...</p>
-        <p id="next-prayer-countdown"></p>
-    </header>
-    
-    <main>
-        <div id="loading-spinner" class="loading">
-            <div class="spinner"></div>
-        </div>
-        
-        <section id="prayer-times" style="display: none;">
-            <h2>Today's Prayer Times</h2>
-            <ul>
-                <li>
-                    <span>Fajr</span>
-                    <span id="fajr">Loading...</span>
-                </li>
-                <li>
-                    <span>Dhuhr</span>
-                    <span id="dhuhr">Loading...</span>
-                </li>
-                <li>
-                    <span>Asr</span>
-                    <span id="asr">Loading...</span>
-                </li>
-                <li>
-                    <span>Maghrib</span>
-                    <span id="maghrib">Loading...</span>
-                </li>
-                <li>
-                    <span>Isha</span>
-                    <span id="isha">Loading...</span>
-                </li>
-            </ul>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2025 Islamic Prayer Times</p>
-    </footer>
-    
-    <script src="script.js"></script>
+ <header>
+ <h1>Islamic Prayer Times</h1>
+ <p id="user-city">Location: Loading...</p>
+ <p id="current-date">Date: Loading...</p>
+ <p id="next-prayer-countdown"></p>
+ </header>
+ <main>
+ <div id="loading-spinner" class="loading">
+ <div class="spinner"></div>
+ </div>
+ <section id="prayer-times" style="display: none;">
+ <h2>Today's Prayer Times</h2>
+ <ul>
+ <li>
+ <span>Fajr</span>
+ <span id="fajr">Loading...</span>
+ </li>
+ <li>
+ <span>Dhuhr</span>
+ <span id="dhuhr">Loading...</span>
+ </li>
+ <li>
+ <span>Asr</span>
+ <span id="asr">Loading...</span>
+ </li>
+ <li>
+ <span>Maghrib</span>
+ <span id="maghrib">Loading...</span>
+ </li>
+ <li>
+ <span>Isha</span>
+ <span id="isha">Loading...</span>
+ </li>
+ </ul>
+ </section>
+ <section id="qibla-section">
+ <h2>Qibla Direction</h2>
+ <div id="compass-container">
+ <div id="compass">
+ <div id="compass-arrow"></div>
+ <div id="compass-degrees"></div>
+ </div>
+ </div>
+ <p id="qibla-direction-text">Calculating Qibla Direction...</p>
+ </section>
+ </main>
+ <footer>
+ <p>&copy; 2025 Islamic Prayer Times</p>
+ </footer>
+ <script src="script.js"></script>
 </body>
 </html>
-
-
-
-

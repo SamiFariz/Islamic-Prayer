@@ -134,20 +134,73 @@ const setCurrentDate = () => {
     dateElement.textContent = `Date: ${formattedDate}`;
 };
 
+const calculateQiblaDirection = (latitude, longitude) => {
+    const kaabaLat = 21.4225;
+    const kaabaLon = 39.8262;
+
+    const toRadians = (degrees) => degrees * (Math.PI / 180);
+    const toDegrees = (radians) => radians * (180 / Math.PI);
+
+    const lat1 = toRadians(latitude);
+    const lon1 = toRadians(longitude);
+    const lat2 = toRadians(kaabaLat);
+    const lon2 = toRadians(kaabaLon);
+
+    const dLon = lon2 - lon1;
+
+    const y = Math.sin(dLon) * Math.cos(lat2);
+    const x = Math.cos(lat1) * Math.sin(lat2) - 
+              Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+
+    let initialBearing = Math.atan2(y, x);
+    initialBearing = toDegrees(initialBearing);
+    const compassBearing = (initialBearing + 360) % 360;
+
+    updateCompass(compassBearing);
+};
+
+const updateCompass = (bearing) => {
+    const compassArrow = document.getElementById('compass-arrow');
+    const compassDegrees = document.getElementById('compass-degrees');
+    const qiblaDirectionText = document.getElementById('qibla-direction-text');
+
+    compassArrow.style.transform = `rotate(${-bearing}deg)`;
+    
+    compassDegrees.textContent = `${Math.round(bearing)}°`;
+
+    const directions = [
+        { min: 337.5, max: 360, text: 'North-West' },
+        { min: 0, max: 22.5, text: 'North' },
+        { min: 22.5, max: 67.5, text: 'North-East' },
+        { min: 67.5, max: 112.5, text: 'East' },
+        { min: 112.5, max: 157.5, text: 'South-East' },
+        { min: 157.5, max: 202.5, text: 'South' },
+        { min: 202.5, max: 247.5, text: 'South-West' },
+        { min: 247.5, max: 337.5, text: 'West' }
+    ];
+
+    const directionText = directions.find(d => 
+        bearing >= d.min && bearing < d.max
+    )?.text || 'Unknown';
+
+    qiblaDirectionText.textContent = `Qibla Direction: ${directionText} (${Math.round(bearing)}°)`;
+};
+
 const getUserLocation = () => {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
-                fetchPrayerTimes(latitude, longitude);  
+                fetchPrayerTimes(latitude, longitude);
+                calculateQiblaDirection(latitude, longitude);
             },
             (error) => {
                 console.warn("Geolocation error:", error.message);
-                // Use IP geolocation as a more reliable fallback
                 fetch('https://ipapi.co/json/')
                     .then(response => response.json())
                     .then(data => {
                         fetchPrayerTimes(data.latitude, data.longitude);
+                        calculateQiblaDirection(data.latitude, data.longitude);
                         cityElement.textContent = `Location: ${data.city}, ${data.region}, ${data.country_name}`;
                     })
                     .catch(ipError => {
@@ -159,6 +212,7 @@ const getUserLocation = () => {
                         };
                         cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
                         fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
+                        calculateQiblaDirection(fallbackLocation.latitude, fallbackLocation.longitude);
                     });
             },
             {
@@ -168,11 +222,11 @@ const getUserLocation = () => {
             }
         );
     } else {
-        // Fallback to IP-based geolocation if browser doesn't support geolocation
         fetch('https://ipapi.co/json/')
             .then(response => response.json())
             .then(data => {
                 fetchPrayerTimes(data.latitude, data.longitude);
+                calculateQiblaDirection(data.latitude, data.longitude);
                 cityElement.textContent = `Location: ${data.city}, ${data.region}, ${data.country_name}`;
             })
             .catch(error => {
@@ -184,6 +238,7 @@ const getUserLocation = () => {
                 };
                 cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
                 fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
+                calculateQiblaDirection(fallbackLocation.latitude, fallbackLocation.longitude);
             });
     }
 };
