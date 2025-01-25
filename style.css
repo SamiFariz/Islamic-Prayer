@@ -5,8 +5,8 @@
     --background-light: #f0f4f2;
     --text-primary: #263238;
     --text-secondary: #37474f;
-    --transition-speed: 0.6s; /* Increased transition speed */
-    --transition-ease: cubic-bezier(0.4, 0.0, 0.2, 1); /* Easing for smoother transitions */
+    --transition-speed: 0.6s;
+    --transition-ease: cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 * {
@@ -78,13 +78,13 @@ main {
 }
 
 #prayer-times {
-    flex: 2; /* Take up more space */
+    flex: 2;
     text-align: center;
     background-color: rgba(240, 244, 242, 0.9);
     padding: 1.5em;
     border-radius: 15px;
     width: 100%;
-    margin-bottom: 1.5em; /* Add some spacing */
+    margin-bottom: 1.5em;
 }
 
 #prayer-times h2 {
@@ -111,6 +111,16 @@ main {
     max-width: 200px;
     height: 120px;
     margin: 10px auto;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: 
+        transform var(--transition-speed) var(--transition-ease),
+        box-shadow 0.3s ease;
+}
+
+.prayer-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: scale(1.03);
 }
 
 .card-face {
@@ -123,11 +133,15 @@ main {
     align-items: center;
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    transition: transform var(--transition-speed) var(--transition-ease); /* Smooth transition */
+    transition: 
+        transform var(--transition-speed) var(--transition-ease),
+        background-color 0.3s ease;
 }
 
 .card-face.front {
     background: white;
+    z-index: 2;
+    transform: rotateY(0deg);
 }
 
 .card-face.back {
@@ -135,18 +149,53 @@ main {
     transform: rotateY(180deg);
     padding: 10px;
     text-align: center;
+    z-index: 1;
 }
 
-.prayer-card.flip .front {
+.prayer-card.flip {
     transform: rotateY(180deg);
 }
 
+.prayer-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, transparent, var(--accent-color), transparent);
+    border-radius: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.prayer-card:hover::before {
+    opacity: 0.2;
+}
+
+.prayer-card.flip .front {
+    background-color: var(--background-light);
+}
+
 .prayer-card.flip .back {
-    transform: rotateY(0deg);
+    background-color: white;
+}
+
+@keyframes flipAnimation {
+    0% {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+    50% {
+        transform: perspective(1000px) rotateY(90deg) scale(1.1);
+    }
+    100% {
+        transform: perspective(1000px) rotateY(180deg);
+    }
 }
 
 #prayer-times li span {
-    margin-right: 5px; /* Adjust the margin as needed */
+    margin-right: 5px;
 }
 
 #next-prayer-countdown {
@@ -160,10 +209,10 @@ main {
 }
 
 #qibla-section {
-    flex: 1; /* Take up less space */
+    flex: 1;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 1em; /* Reduced padding */
+    padding: 1em;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -171,11 +220,11 @@ main {
 
 #compass {
     position: relative;
-    width: 150px; /* Reduced size */
-    height: 150px; /* Reduced size */
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     background-color: #f0f0f0;
-    border: 10px solid #c0c0c0; /* Adjusted border size */
+    border: 10px solid #c0c0c0;
     box-shadow: 0 0 20px rgba(19, 102, 21, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
 }
@@ -186,8 +235,8 @@ main {
     top: 30%; 
     transform: translate(-50%, -50%);
     transform-origin: center bottom;
-    width: 4px; /* Adjusted width */
-    height: 80px; /* Adjusted height */
+    width: 4px;
+    height: 80px;
     background: linear-gradient(to bottom, #0f0f0f 0%, #0f0f0f 50%, #0f0f0f 100%);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
@@ -226,12 +275,12 @@ main {
     }
 
     #compass {
-        width: 130px; /* Further reduced size for smaller screens */
-        height: 130px; /* Further reduced size for smaller screens */
+        width: 130px;
+        height: 130px;
     }
     
     .device-needle {
-        height: 60px; /* Further adjusted height for smaller screens */
+        height: 60px;
     }
 }
 
