@@ -168,8 +168,12 @@ const calculateQiblaDirection = (latitude, longitude) => {
 
 const updateCompass = () => {
     console.log(`Qibla Angle: ${qiblaAngle}, Device Heading: ${deviceHeading}`);
-    kaabaNeedle.style.transform = `rotate(${qiblaAngle - deviceHeading}deg)`;
-    compassElement.style.transform = `rotate(${-deviceHeading}deg)`;
+    
+    // Rotate the kaaba needle to always point to the Qibla
+    kaabaNeedle.style.transform = `rotate(${qiblaAngle}deg)`;
+
+    // Rotate the entire compass based on the device heading
+    compassElement.style.transform = `rotate(${deviceHeading}deg)`;
 
     const directions = [
         { min: 337.5, max: 360, text: 'North-West' },
@@ -195,7 +199,7 @@ const initializeDeviceOrientation = () => {
             if (event.webkitCompassHeading) {
                 deviceHeading = event.webkitCompassHeading;
             } else if (event.alpha) {
-                deviceHeading = 360 - event.alpha;
+                deviceHeading = event.alpha;
             } else {
                 deviceHeading = 0;
             }
