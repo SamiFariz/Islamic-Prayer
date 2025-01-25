@@ -6,6 +6,26 @@
  <title>Islamic Prayer Times</title>
  <link rel="stylesheet" href="style.css">
  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+ <style>
+    #kaaba-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        background-image: url('https://i.pinimg.com/564x/ef/6d/d8/ef6dd8d03395df5cd84b6935d4758143.jpg');
+        background-size: cover;
+        background-position: center;
+        border-radius: 4px;
+        z-index: 20;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    #compass {
+        position: relative;
+    }
+ </style>
 </head>
 <body>
  <header>
@@ -44,20 +64,21 @@
  </ul>
  </section>
  <section id="qibla-section">
-    <h2>Qibla Compass</h2>
-    <div id="compass-container">
-        <div id="compass">
-            <div id="compass-rose">
-                <span class="compass-label north">N</span>
-                <span class="compass-label east">E</span>
-                <span class="compass-label south">S</span>
-                <span class="compass-label west">W</span>
-            </div>
-            <div id="device-needle" class="needle device-needle"></div>
-            <div id="kaaba-needle" class="needle kaaba-needle"></div>
-        </div>
-    </div>
-    <p id="qibla-direction-text">Calculating Qibla Direction...</p>
+ <h2>Qibla Compass</h2>
+ <div id="compass-container">
+ <div id="compass">
+ <div id="kaaba-icon"></div>
+ <div id="compass-rose">
+ <span class="compass-label north">N</span>
+ <span class="compass-label east">E</span>
+ <span class="compass-label south">S</span>
+ <span class="compass-label west">W</span>
+ </div>
+ <div id="device-needle" class="needle device-needle"></div>
+ <div id="kaaba-needle" class="needle kaaba-needle"></div>
+ </div>
+ </div>
+ <p id="qibla-direction-text">Calculating Qibla Direction...</p>
  </section>
  </main>
  <footer>
