@@ -3,6 +3,11 @@ const prayerTimesElement = document.getElementById("prayer-times");
 const dateElement = document.getElementById("current-date");
 const cityElement = document.getElementById("user-city");
 const nextPrayerCountdown = document.getElementById("next-prayer-countdown");
+const qiblaDirectionText = document.getElementById('qibla-direction-text');
+const kaabaNeedle = document.getElementById('kaaba-needle');
+const deviceNeedle = document.getElementById('device-needle');
+const compassElement = document.getElementById('compass');
+
 let countdownInterval;
 let qiblaAngle = 0;
 let deviceHeading = 0;
@@ -162,11 +167,7 @@ const calculateQiblaDirection = (latitude, longitude) => {
 };
 
 const updateCompass = () => {
-    const compassElement = document.getElementById('compass');
-    const kaabaNeedle = document.getElementById('kaaba-needle');
-    const deviceNeedle = document.getElementById('device-needle');
-    const qiblaDirectionText = document.getElementById('qibla-direction-text');
-
+    console.log(`Qibla Angle: ${qiblaAngle}, Device Heading: ${deviceHeading}`);
     kaabaNeedle.style.transform = `rotate(${qiblaAngle - deviceHeading}deg)`;
     compassElement.style.transform = `rotate(${-deviceHeading}deg)`;
 
@@ -191,10 +192,15 @@ const updateCompass = () => {
 const initializeDeviceOrientation = () => {
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', (event) => {
-            deviceHeading = event.webkitCompassHeading || 
-                            event.alpha && (360 - event.alpha) || 
-                            0;
-            
+            if (event.webkitCompassHeading) {
+                deviceHeading = event.webkitCompassHeading;
+            } else if (event.alpha) {
+                deviceHeading = 360 - event.alpha;
+            } else {
+                deviceHeading = 0;
+            }
+
+            console.log(`Device Heading: ${deviceHeading}`);
             updateCompass();
         });
     } else {
