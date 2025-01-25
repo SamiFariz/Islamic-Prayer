@@ -78,7 +78,7 @@ main {
 }
 
 #prayer-times {
-    flex: 2;
+    flex: 3; /* Increased flex value to take more space */
     text-align: center;
     background-color: rgba(240, 244, 242, 0.9);
     padding: 1.5em;
@@ -89,7 +89,7 @@ main {
 
 #prayer-times h2 {
     color: var(--secondary-color);
-    font-size: 1.8em;
+    font-size: 2em; /* Increased font size */
     margin-bottom: 1em;
     text-transform: capitalize;
     font-weight: 700;
@@ -200,7 +200,7 @@ main {
 }
 
 #qibla-section {
-    flex: 1;
+    flex: 1; 
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 1em;
@@ -213,13 +213,13 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    margin: 10px 0; 
 }
 
 #compass {
     position: relative;
-    width: 200px;
-    height: 200px;
+    width: 150px; 
+    height: 150px;
     border-radius: 50%;
     background-color: #f0f0f0;
     border: 10px solid #c0c0c0;
@@ -327,8 +327,8 @@ main {
     }
 
     #compass {
-        width: 130px;
-        height: 130px;
+        width: 100px; 
+        height: 100px; 
     }
     
     .kaaba-needle {
