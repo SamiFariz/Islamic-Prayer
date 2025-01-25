@@ -212,6 +212,23 @@ const initializeDeviceOrientation = () => {
     }
 };
 
+const requestPermissionForDeviceOrientation = async () => {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        try {
+            const permission = await DeviceOrientationEvent.requestPermission();
+            if (permission === 'granted') {
+                initializeDeviceOrientation();
+            } else {
+                console.warn('Device orientation permission denied');
+            }
+        } catch (error) {
+            console.error('Error requesting device orientation permission:', error);
+        }
+    } else {
+        initializeDeviceOrientation(); // For browsers that do not require permission
+    }
+};
+
 const getUserLocation = () => {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
@@ -219,7 +236,7 @@ const getUserLocation = () => {
                 const { latitude, longitude } = position.coords;
                 fetchPrayerTimes(latitude, longitude);
                 calculateQiblaDirection(latitude, longitude);
-                initializeDeviceOrientation();
+                requestPermissionForDeviceOrientation();
             },
             (error) => {
                 console.warn("Geolocation error:", error.message);
@@ -228,7 +245,7 @@ const getUserLocation = () => {
                     .then(data => {
                         fetchPrayerTimes(data.latitude, data.longitude);
                         calculateQiblaDirection(data.latitude, data.longitude);
-                        initializeDeviceOrientation();
+                        requestPermissionForDeviceOrientation();
                         cityElement.textContent = `Location: ${data.city}, ${data.region}, ${data.country_name}`;
                     })
                     .catch(ipError => {
@@ -241,7 +258,7 @@ const getUserLocation = () => {
                         cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
                         fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
                         calculateQiblaDirection(fallbackLocation.latitude, fallbackLocation.longitude);
-                        initializeDeviceOrientation();
+                        requestPermissionForDeviceOrientation();
                     });
             },
             {
