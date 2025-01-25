@@ -103,9 +103,9 @@ main {
 }
 
 #dhikr {
-    margin-bottom: 3em; /* Increased space below the dhikr section */
+    margin-bottom: 3em; 
     text-align: center;
-    background-color: var(--background-light); /* Updated to be see-through */
+    background-color: var(--background-light); 
     padding: 1.5em;
     border-radius: 15px;
     width: 100%;
