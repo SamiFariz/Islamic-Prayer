@@ -169,10 +169,8 @@ const calculateQiblaDirection = (latitude, longitude) => {
 const updateCompass = () => {
     console.log(`Qibla Angle: ${qiblaAngle}, Device Heading: ${deviceHeading}`);
     
-    // Rotate the kaaba needle to always point to the Qibla
     kaabaNeedle.style.transform = `rotate(${qiblaAngle}deg)`;
 
-    // Rotate the entire compass based on the device heading
     compassElement.style.transform = `rotate(${deviceHeading}deg)`;
 
     const directions = [
@@ -225,7 +223,7 @@ const requestPermissionForDeviceOrientation = async () => {
             console.error('Error requesting device orientation permission:', error);
         }
     } else {
-        initializeDeviceOrientation(); // For browsers that do not require permission
+        initializeDeviceOrientation(); 
     }
 };
 
@@ -276,7 +274,6 @@ const init = () => {
     setCurrentDate();
     getUserLocation();
     
-    // Add event listeners for flip effect on prayer cards
     document.querySelectorAll('.prayer-card').forEach(card => {
         card.addEventListener('click', () => {
             card.classList.toggle('flip');
