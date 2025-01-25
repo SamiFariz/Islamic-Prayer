@@ -203,11 +203,11 @@ footer {
 
 #compass {
     position: relative;
-    width: 250px;
-    height: 250px;
+    width: 150px; /* Reduced size */
+    height: 150px; /* Reduced size */
     border-radius: 50%;
     background-color: #f0f0f0;
-    border: 12px solid #c0c0c0;
+    border: 10px solid #c0c0c0; /* Adjusted border size */
     box-shadow: 0 0 20px rgba(19, 102, 21, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
 }
@@ -218,8 +218,8 @@ footer {
     top: 30%; 
     transform: translate(-50%, -50%);
     transform-origin: center bottom;
-    width: 6px;
-    height: 100px;
+    width: 4px; /* Adjusted width */
+    height: 80px; /* Adjusted height */
     background: linear-gradient(to bottom, #0f0f0f 0%, #0f0f0f 50%, #0f0f0f 100%);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
@@ -258,12 +258,12 @@ footer {
     }
 
     #compass {
-        width: 200px;
-        height: 200px;
+        width: 130px; /* Further reduced size for smaller screens */
+        height: 130px; /* Further reduced size for smaller screens */
     }
     
     .device-needle {
-        height: 80px;
+        height: 60px; /* Further adjusted height for smaller screens */
     }
 }
 
