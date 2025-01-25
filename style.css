@@ -179,7 +179,7 @@ footer {
     background-size: cover;
     background-position: center;
     border-radius: 4px;
-    z-index: 20;
+    z-index: 21;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
@@ -207,7 +207,46 @@ footer {
     background-color: #f0f0f0;
     border: 15px solid #c0c0c0;
     box-shadow: 
-        0 0 20px rgba(0,0,0,0.2),
+        0 0 20px rgba(#kaaba-icon {
+    position: absolute;
+    top: 30%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background-image: url('https://i.pinimg.com/564x/ef/6d/d8/ef6dd8d03395df5cd84b6935d4758143.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    z-index: 21; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    pointer-events: none; 
+}
+
+.needle {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    transform-origin: center bottom;
+    transition: transform 0.3s ease;
+    z-index: 20; 
+}
+
+.device-needle {
+    width: 8px;
+    height: 120px;
+    background: linear-gradient(
+        to bottom, 
+        #0f0f0f 0%, 
+        #0f0f0f 50%, 
+        #0f0f0f 100%
+    );
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    z-index: 20;
+}
+),
         inset 0 0 15px rgba(0,0,0,0.1);
 }
 
@@ -219,14 +258,14 @@ footer {
     background-color: #f0f0f0;
     border: 15px solid #c0c0c0;
     box-shadow: 
-        0 0 20px rgba(0,0,0,0.2),
-        inset 0 0 15px rgba(0,0,0,0.1);
+        0 0 20px rgba(46, 125, 50, 0.8),
+        inset 0 0 15px rgba(46, 125, 50, 0.8);
 }
 
 .needle {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 30%;
     transform: translate(-50%, -50%);
     transform-origin: center bottom;
     transition: transform 0.3s ease;
@@ -237,28 +276,15 @@ footer {
     height: 120px;
     background: linear-gradient(
         to bottom, 
-        #ff6b6b 0%, 
-        #ff4757 50%, 
-        #ff6b6b 100%
+        #0f0f0f 0%, 
+        #0f0f0f 50%, 
+        #0f0f0f 100%
     );
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     box-shadow: 0 0 10px rgba(255,0,0,0.5);
     z-index: 20;
 }
 
-.kaaba-needle {
-    width: 8px;
-    height: 140px;
-    background: linear-gradient(
-        to bottom, 
-        #2ecc71 0%, 
-        #27ae60 50%, 
-        #2ecc71 100%
-    );
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    box-shadow: 0 0 10px rgba(0,255,0,0.5);
-    z-index: 15;
-}
 
 .compass-label {
     position: absolute;
@@ -295,7 +321,7 @@ footer {
     width: 100%;
     height: 100%;
     background-image: 
-        linear-gradient(rgba(200,200,200,0.2), rgba(200,200,200,0.2)),
+        linear-gradient(rgba(200, 200, 200, 0.2), rgba(200,200,200,0.2)),
         url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="%23888" opacity="0.1"/></svg>');
 }
 
