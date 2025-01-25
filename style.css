@@ -170,7 +170,7 @@ footer {
 
 #kaaba-icon {
     position: absolute;
-    top: 30%; /* Align with the needle's base position */
+    top: 50%; 
     left: 50%;
     transform: translate(-50%, -50%);
     width: 40px;
@@ -179,9 +179,9 @@ footer {
     background-size: cover;
     background-position: center;
     border-radius: 4px;
-    z-index: 21; /* Ensure it appears above the needle */
+    z-index: 21;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    pointer-events: none; /* Prevent interaction with the icon */
+    pointer-events: none; 
 }
 
 #qibla-section {
@@ -215,11 +215,11 @@ footer {
 .needle {
     position: absolute;
     left: 50%;
-    top: 30%; /* Ensure alignment with Kaaba icon */
+    top: 30%; 
     transform: translate(-50%, -50%);
     transform-origin: center bottom;
     transition: transform 0.3s ease;
-    z-index: 20; /* Place behind the Kaaba icon */
+    z-index: 20; 
 }
 
 .device-needle {
