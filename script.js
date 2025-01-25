@@ -275,6 +275,13 @@ const getUserLocation = () => {
 const init = () => {
     setCurrentDate();
     getUserLocation();
+    
+    // Add event listeners for flip effect on prayer cards
+    document.querySelectorAll('.prayer-card').forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('flip');
+        });
+    });
 };
 
 init();
