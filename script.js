@@ -5,7 +5,6 @@ const cityElement = document.getElementById("user-city");
 const nextPrayerCountdown = document.getElementById("next-prayer-countdown");
 const qiblaDirectionText = document.getElementById('qibla-direction-text');
 const kaabaNeedle = document.getElementById('kaaba-needle');
-const deviceNeedle = document.getElementById('device-needle');
 const compassElement = document.getElementById('compass');
 
 let countdownInterval;
@@ -169,9 +168,7 @@ const calculateQiblaDirection = (latitude, longitude) => {
 const updateCompass = () => {
     console.log(`Qibla Angle: ${qiblaAngle}, Device Heading: ${deviceHeading}`);
     
-    kaabaNeedle.style.transform = `rotate(${qiblaAngle}deg)`;
-
-    compassElement.style.transform = `rotate(${deviceHeading}deg)`;
+    kaabaNeedle.style.transform = `rotate(${qiblaAngle - deviceHeading}deg)`;
 
     const directions = [
         { min: 337.5, max: 360, text: 'North-West' },

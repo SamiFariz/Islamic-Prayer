@@ -218,29 +218,92 @@ main {
     width: 100%;
 }
 
+#compass-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
 #compass {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background-color: #f0f0f0;
     border: 10px solid #c0c0c0;
     box-shadow: 0 0 20px rgba(19, 102, 21, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
 }
 
-.device-needle {
+#compass::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 21;
+}
+
+
+
+.kaaba-needle {
     position: absolute;
     left: 50%;
-    top: 30%; 
-    transform: translate(-50%, -50%);
-    transform-origin: center bottom;
-    width: 4px;
-    height: 80px;
-    background: linear-gradient(to bottom, #0f0f0f 0%, #0f0f0f 50%, #0f0f0f 100%);
+    top: 00%;
+    transform: translate(-50%, -100%);
+    transform-origin: bottom;
+    width: 10px;
+    height: 90px;
+    background: linear-gradient(to bottom, #010101 0%, #010101 50%, #010101 100%);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
     z-index: 20;
+}
+
+#compass-rose {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#compass-rose span {
+    position: absolute;
+}
+
+.north {
+    top: 10px;
+}
+
+.east {
+    right: 10px;
+}
+
+.south {
+    bottom: 10px;
+}
+
+.west {
+    left: 10px;
+}
+
+#qibla-direction-text {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 @media screen and (max-width: 480px) {
@@ -279,7 +342,7 @@ main {
         height: 130px;
     }
     
-    .device-needle {
+    .kaaba-needle {
         height: 60px;
     }
 }
