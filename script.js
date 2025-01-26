@@ -267,6 +267,7 @@ const getUserLocation = () => {
     }
 };
 
+
 const init = () => {
     setCurrentDate();
     getUserLocation();
@@ -306,6 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
+    
 
     quoteElements.forEach((element, index) => {
         const prayerTime = element.querySelector('.front span:first-child').textContent;
@@ -313,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const quoteIndex = (dayOfMonth + index) % quotes.length;
             element.querySelector(".back p").textContent = quotes[quoteIndex];
         }
+
     });
     
 });
