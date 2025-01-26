@@ -84,19 +84,9 @@ main {
     border-radius: 15px;
     width: 100%;
     position: relative;
-}
-
-#prayer-times {
-    margin-bottom: 2em;
-    text-align: center;
-    background-color: var(--background-light); 
-    padding: 1.5em;
-    border-radius: 15px;
-    width: 100%;
     display: flex;
     align-items: center; 
     justify-content: center; 
-    position: relative;
 }
 
 #prayer-times h2 {
@@ -421,13 +411,22 @@ main {
         padding: 0.8em;
     }
 
+    .prayer-card {
+        max-width: 150px; /* Adjusted width to fit mobile screens */
+        margin: 10px auto;
+    }
+
+    .card-face {
+        height: 100px; /* Adjusted height to fit mobile screens */
+    }
+
+    .kaaba-needle {
+        height: 60px;
+    }
+
     #compass {
         width: 100px; 
         height: 100px; 
-    }
-    
-    .kaaba-needle {
-        height: 60px;
     }
 }
 
