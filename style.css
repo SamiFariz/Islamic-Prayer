@@ -435,7 +435,6 @@ main {
     }
 
     .card-face.back {
-        backface-visibility: hidden;
         transform: rotateY(180deg);
     }
 
