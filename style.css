@@ -418,17 +418,32 @@ main {
     .prayer-card {
         max-width: 150px; 
         margin: 10px auto;
+        position: relative;
+        perspective: 1000px;
     }
 
     .card-face {
-        height: 100px; 
+        height: 100px;
+        position: absolute;
+        width: 100%;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
     }
+
+    .card-face.front {
+        transform: rotateY(0deg);
+    }
+
+    .card-face.back {
+        transform: rotateY(180deg);
+    }
+
     .prayer-card.flip .front {
         transform: rotateY(180deg);
     }
     
     .prayer-card.flip .back {
-        transform: rotateY(180);
+        transform: rotateY(360deg);
     }
 
     .kaaba-needle {
