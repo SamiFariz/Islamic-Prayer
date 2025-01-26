@@ -426,7 +426,6 @@ main {
         height: 100px;
         position: absolute;
         width: 100%;
-        backface-visibility: hidden;
         transform-style: preserve-3d;
     }
 
