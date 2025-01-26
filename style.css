@@ -200,7 +200,7 @@ main {
 }
 
 .card-face.back {
-    background: var(--background-light); 
+    background-color: rgba(238, 228, 218, 0.7); 
     transform: rotateY(180deg);
     padding: 10px;
     text-align: center;
@@ -433,7 +433,7 @@ main {
     }
 
     .card-face.back {
-        background: var(--background-light); 
+        background-color: rgba(238, 228, 218, 0.7); 
         transform: rotateY(180deg);
         padding: 10px;
         text-align: center;
