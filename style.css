@@ -431,19 +431,11 @@ main {
     }
 
     .card-face.front {
-        transform: rotateY(0deg);
+        transform: rotateY(180deg);
     }
 
     .card-face.back {
         transform: rotateY(180deg);
-    }
-
-    .prayer-card.flip .front {
-        transform: rotateY(180deg);
-    }
-    
-    .prayer-card.flip .back {
-        transform: rotateY(360deg);
     }
 
     .kaaba-needle {
