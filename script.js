@@ -301,11 +301,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const quoteElements = document.querySelectorAll("[data-quote]");
 
-    // Get the current date
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
 
-    // Use the day of the month to select a quote
     quoteElements.forEach((element, index) => {
         const quoteIndex = (dayOfMonth + index) % quotes.length;
         element.querySelector("p").textContent = quotes[quoteIndex];

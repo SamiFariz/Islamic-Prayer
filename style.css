@@ -412,12 +412,12 @@ main {
     }
 
     .prayer-card {
-        max-width: 150px; /* Adjusted width to fit mobile screens */
+        max-width: 150px; 
         margin: 10px auto;
     }
 
     .card-face {
-        height: 100px; /* Adjusted height to fit mobile screens */
+        height: 100px; 
     }
 
     .kaaba-needle {
@@ -425,8 +425,8 @@ main {
     }
 
     #compass {
-        width: 100px; 
-        height: 100px; 
+        width: 130px; 
+        height: 130px; 
     }
 }
 
