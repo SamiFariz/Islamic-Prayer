@@ -279,6 +279,7 @@ const init = () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+    const prayerCards = document.querySelectorAll(".prayer-card");
     const quotes = [
         "“Indeed, prayer prohibits immorality and wrongdoing.” - Quran 29:45",
         "“So, verily, with hardship comes ease.” - Quran 94:5",
@@ -310,15 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const prayerTime = element.querySelector('.front span:first-child').textContent;
         if (prayerTimes.includes(prayerTime)) {
             const quoteIndex = (dayOfMonth + index) % quotes.length;
-            element.querySelector("p").textContent = quotes[quoteIndex];
-        }
-    });
-    const dhikrQuoteElements = document.querySelectorAll("#dhikr .prayer-card");
-    dhikrQuoteElements.forEach((element, index) => {
-        const dhikrType = element.querySelector('.front span:first-child').textContent;
-        if (dhikrTypes.includes(dhikrType)) {
-            const quoteIndex = (dayOfMonth + index) % dhikrQuotes.length;
-            element.querySelector("p").textContent = dhikrQuotes[quoteIndex];
+            element.querySelector(".back p").textContent = quotes[quoteIndex];
         }
     });
 });
