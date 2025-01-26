@@ -314,6 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
             element.querySelector(".back p").textContent = quotes[quoteIndex];
         }
     });
+    
 });
 
 init();

@@ -201,7 +201,7 @@ main {
 
 .card-face.back {
     background: var(--background-light); 
-    transform: rotateY(-180deg);
+    transform: rotateY(180deg);
     padding: 10px;
     text-align: center;
     z-index: 1;
@@ -213,7 +213,9 @@ main {
 .prayer-card.flip .card-face.front {
     transform: rotateY(180deg);
 }
-
+.prayer-card.flip .card-face.back {
+    transform: rotateY(360deg);
+}
 
 .prayer-card::before {
     content: '';
@@ -432,7 +434,7 @@ main {
 
     .card-face.back {
         background: var(--background-light); 
-        transform: rotateY(-180deg);
+        transform: rotateY(180deg);
         padding: 10px;
         text-align: center;
         z-index: 1;
@@ -444,7 +446,9 @@ main {
     .prayer-card.flip .card-face.front {
         transform: rotateY(180deg);
     }
-  
+    .prayer-card.flip .card-face.back {
+        transform: rotateY(360deg);
+    }
 
     .kaaba-needle {
         height: 60px;
