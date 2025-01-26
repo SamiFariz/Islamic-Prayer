@@ -277,6 +277,7 @@ const init = () => {
         });
     });
 };
+
 document.addEventListener("DOMContentLoaded", () => {
     const quotes = [
         "“Indeed, prayer prohibits immorality and wrongdoing.” - Quran 29:45",
@@ -293,20 +294,33 @@ document.addEventListener("DOMContentLoaded", () => {
         "“And establish prayer and give zakah.” - Quran 2:110",
         "“Do not walk upon the earth arrogantly.” - Quran 17:37",
         "“Indeed, Allah is Forgiving and Merciful.” - Quran 4:96",
-        "“Do good as Allah has done good to you.” - Quran 28:77", 
+        "Do good as Allah has done good to you.” - Quran 28:77", 
         "“And turn to Allah in repentance, all of you, that you might succeed.” - Quran 24:31",
         "“And let not the hatred of a people prevent you from being just.” - Quran 5:8",
         "“And they plan, but Allah plans. And Allah is the best of planners.” - Quran 3:54"
     ];
 
-    const quoteElements = document.querySelectorAll("[data-quote]");
+    const prayerTimes = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+    const quoteElements = document.querySelectorAll(".prayer-card");
 
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
 
     quoteElements.forEach((element, index) => {
-        const quoteIndex = (dayOfMonth + index) % quotes.length;
-        element.querySelector("p").textContent = quotes[quoteIndex];
+        const prayerTime = element.querySelector('.front span:first-child').textContent;
+        if (prayerTimes.includes(prayerTime)) {
+            const quoteIndex = (dayOfMonth + index) % quotes.length;
+            element.querySelector("p").textContent = quotes[quoteIndex];
+        }
+    });
+    const dhikrQuoteElements = document.querySelectorAll("#dhikr .prayer-card");
+    dhikrQuoteElements.forEach((element, index) => {
+        const dhikrType = element.querySelector('.front span:first-child').textContent;
+        if (dhikrTypes.includes(dhikrType)) {
+            const quoteIndex = (dayOfMonth + index) % dhikrQuotes.length;
+            element.querySelector("p").textContent = dhikrQuotes[quoteIndex];
+        }
     });
 });
+
 init();
