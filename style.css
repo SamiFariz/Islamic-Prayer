@@ -173,9 +173,10 @@ main {
     margin: 10px auto;
     cursor: pointer;
     transform-style: preserve-3d;
-    transition: 
-        transform var(--transition-speed) var(--transition-ease),
-        box-shadow 0.3s ease;
+    transition: transform var(--transition-speed) var(--transition-ease), box-shadow 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-face {
@@ -425,8 +426,8 @@ main {
     }
 
     #compass {
-        width: 130px; 
-        height: 130px; 
+        width: 150px; 
+        height: 150px; 
     }
 }
 
