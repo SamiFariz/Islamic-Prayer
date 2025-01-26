@@ -423,6 +423,13 @@ main {
     .card-face {
         height: 100px; 
     }
+    .prayer-card.flip .front {
+        transform: rotateY(180deg);
+    }
+    
+    .prayer-card.flip .back {
+        transform: rotateY(180);
+    }
 
     .kaaba-needle {
         height: 60px;
