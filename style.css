@@ -208,7 +208,7 @@ main {
 }
 
 .prayer-card.flip {
-    transform: rotateY(180deg);
+    transform: rotateY(0deg);
 }
 .prayer-card.flip .card-face.front {
     transform: rotateY(180deg);
