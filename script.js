@@ -277,5 +277,38 @@ const init = () => {
         });
     });
 };
+document.addEventListener("DOMContentLoaded", () => {
+    const quotes = [
+        "“Indeed, prayer prohibits immorality and wrongdoing.” - Quran 29:45",
+        "“So, verily, with hardship comes ease.” - Quran 94:5",
+        "“And seek help through patience and prayer.” - Quran 2:45",
+        "“So remember Me; I will remember you.” - Quran 2:152",
+        "“Do not despair of the mercy of Allah.” - Quran 39:53",
+        "“Allah does not burden a soul beyond that it can bear.” - Quran 2:286",
+        "“And whoever puts their trust in Allah, then He will suffice him.” - Quran 65:3",
+        "“So be patient. Indeed, the promise of Allah is truth.” - Quran 30:60",
+        "“Verily, in the remembrance of Allah do hearts find rest.” - Quran 13:28",
+        "“Indeed, Allah loves those who rely upon Him.” - Quran 3:159",
+        "“Help one another in righteousness and piety.” - Quran 5:2",
+        "“And establish prayer and give zakah.” - Quran 2:110",
+        "“Do not walk upon the earth arrogantly.” - Quran 17:37",
+        "“Indeed, Allah is Forgiving and Merciful.” - Quran 4:96",
+        "“Do good as Allah has done good to you.” - Quran 28:77", 
+        "“And turn to Allah in repentance, all of you, that you might succeed.” - Quran 24:31",
+        "“And let not the hatred of a people prevent you from being just.” - Quran 5:8",
+        "“And they plan, but Allah plans. And Allah is the best of planners.” - Quran 3:54"
+    ];
 
+    const quoteElements = document.querySelectorAll("[data-quote]");
+
+    // Get the current date
+    const currentDate = new Date();
+    const dayOfMonth = currentDate.getDate();
+
+    // Use the day of the month to select a quote
+    quoteElements.forEach((element, index) => {
+        const quoteIndex = (dayOfMonth + index) % quotes.length;
+        element.querySelector("p").textContent = quotes[quoteIndex];
+    });
+});
 init();
