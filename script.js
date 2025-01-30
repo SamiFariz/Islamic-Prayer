@@ -297,9 +297,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "“Do not walk upon the earth arrogantly.” - Quran 17:37",
         "“Indeed, Allah is Forgiving and Merciful.” - Quran 4:96",
         "Do good as Allah has done good to you.” - Quran 28:77", 
-        "“And turn to Allah in repentance, all of you, that you might succeed.” - Quran 24:31",
         "“And let not the hatred of a people prevent you from being just.” - Quran 5:8",
-        "“And they plan, but Allah plans. And Allah is the best of planners.” - Quran 3:54"
+        "“And Allah is the best of planners.” - Quran 3:54"
     ];
 
     const prayerTimes = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
