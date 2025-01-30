@@ -267,7 +267,6 @@ const getUserLocation = () => {
     }
 };
 
-
 const init = () => {
     setCurrentDate();
     getUserLocation();
