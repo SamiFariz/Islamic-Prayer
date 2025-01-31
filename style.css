@@ -413,17 +413,17 @@ main {
     }
 
     .prayer-card {
-        max-width: 160px;
-        height: 110px;
-        margin: 10px auto;
+        max-width: 170px;
+        height: 120px;
+        margin: 15px auto;
         perspective: 1000px;
         transform-style: preserve-3d;
     }
 
     .card-face {
-        height: 100px;
+        height: 120px;
         position: absolute;
-        width: 100%;
+        width: 120%;
         backface-visibility: hidden;
         transform-style: preserve-3d;
     }
