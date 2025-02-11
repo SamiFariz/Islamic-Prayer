@@ -313,8 +313,8 @@ main {
     width: 150px; 
     height: 150px;
     border-radius: 50%;
-    background-color: rgba(238, 228, 218, 0.7); /* Adjusted for transparency */
-    border: 10px solid rgba(238, 228, 218, 0.7); /* Adjusted for transparency */
+    background-color: rgba(238, 228, 218, 0.7); 
+    border: 10px solid rgba(238, 228, 218, 0.7); 
     box-shadow: 0 0 20px rgba(19, 102, 21, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -404,8 +404,8 @@ main {
   
     #prayer-times ul {
       display: flex;
-      flex-wrap: wrap; /* Ensures cards wrap instead of overflowing */
-      justify-content: center; /* Centers the cards */
+      flex-wrap: wrap;
+      justify-content: center; 
       gap: 0.6em;
     }
   
@@ -415,8 +415,8 @@ main {
     }
   
     .prayer-card {
-      width: min(100%, 160px); /* Adapts to smaller screens */
-      height: min(100px, 35vw); /* Scales dynamically */
+      width: min(100%, 160px);
+      height: min(100px, 35vw); 
       margin: 10px auto;
       perspective: 1000px;
       transform-style: preserve-3d;
@@ -462,7 +462,7 @@ main {
     }
   
     .kaaba-needle {
-      height: 50px; /* Reduced for smaller screens */
+      height: 50px;
     }
   
     #compass {
