@@ -6,10 +6,61 @@ const nextPrayerCountdown = document.getElementById("next-prayer-countdown");
 const qiblaDirectionText = document.getElementById('qibla-direction-text');
 const kaabaNeedle = document.getElementById('kaaba-needle');
 const compassElement = document.getElementById('compass');
-
+const surahSelect = document.getElementById('surah-select');
+const surahTitle = document.getElementById('surah-title');
+const surahContent = document.getElementById('surah-content');
 let countdownInterval;
 let qiblaAngle = 0;
 let deviceHeading = 0;
+
+const fetchSurahs = async () => {
+    try {
+        const response = await fetch('http://api.alquran.cloud/v1/surah');
+        const data = await response.json();
+        populateSurahDropdown(data.data);
+    } catch (error) {
+        console.error('Error fetching Surahs:', error);
+    }
+};
+
+const populateSurahDropdown = (surahs) => {
+    surahs.forEach(surah => {
+        const option = document.createElement('option');
+        option.value = surah.number;
+        option.textContent = `${surah.number}. ${surah.name}`;
+        surahSelect.appendChild(option);
+    });
+};
+
+const fetchSurahContent = async (surahNumber) => {
+    try {
+        const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
+        const data = await response.json();
+        displaySurah(data.data);
+    } catch (error) {
+        console.error('Error fetching Surah content:', error);
+    }
+};
+
+const displaySurah = (surah) => {
+    surahTitle.textContent = surah.name;
+    surahContent.innerHTML = surah.ayahs
+        .map(ayah => `
+            <p class="arabic-text" style="font-family: 'Traditional Arabic', serif; font-size: 24px; direction: rtl; text-align: right;">
+                ${ayah.text} ﴿${ayah.numberInSurah}﴾
+            </p>
+        `)
+        .join('');
+};
+
+surahSelect.addEventListener('change', (event) => {
+    const surahNumber = event.target.value;
+    if (surahNumber) {
+        fetchSurahContent(surahNumber);
+    }
+});
+
+fetchSurahs();
 
 const formatTimeTo12Hour = (time) => {
     const [hour, minute] = time.split(":").map(Number);
@@ -63,11 +114,11 @@ const fetchPrayerTimes = async (latitude, longitude) => {
         const response = await fetch(
             `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2&date=${new Date().toISOString().split('T')[0]}`
         );
-        
+
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.status}`);
         }
-        
+
         const data = await response.json();
         updatePrayerTimesUI(data.data.timings);
         updateLocationInfo(latitude, longitude, data.data);
@@ -85,7 +136,7 @@ const updatePrayerTimesUI = (timings) => {
             element.textContent = formatTimeTo12Hour(timings[id.charAt(0).toUpperCase() + id.slice(1)]);
         }
     });
-    
+
     loadingSpinner.style.display = "none";
     prayerTimesElement.style.display = "block";
 };
@@ -97,21 +148,21 @@ const updateLocationInfo = async (latitude, longitude, data) => {
                 `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`
             );
             const locationData = await response.json();
-            
-            const city = locationData.address.city || 
-                         locationData.address.town || 
-                         locationData.address.county || 
-                         'Unknown Location';
-            const state = locationData.address.state || 
-                          locationData.address.county || 
-                          'Unknown State';
+
+            const city = locationData.address.city ||
+                locationData.address.town ||
+                locationData.address.county ||
+                'Unknown Location';
+            const state = locationData.address.state ||
+                locationData.address.county ||
+                'Unknown State';
             const country = locationData.address.country || 'Unknown Country';
-            
+
             cityElement.textContent = `Location: ${city}, ${state}, ${country}`;
         } catch (error) {
             console.warn("Reverse geocoding failed:", error);
-            cityElement.textContent = data.meta && data.meta.timezone 
-                ? `Location: ${data.meta.timezone}` 
+            cityElement.textContent = data.meta && data.meta.timezone
+                ? `Location: ${data.meta.timezone}`
                 : 'Location: Unable to determine';
         }
     }
@@ -155,8 +206,8 @@ const calculateQiblaDirection = (latitude, longitude) => {
     const dLon = lon2 - lon1;
 
     const y = Math.sin(dLon) * Math.cos(lat2);
-    const x = Math.cos(lat1) * Math.sin(lat2) - 
-              Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+    const x = Math.cos(lat1) * Math.sin(lat2) -
+        Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
 
     let initialBearing = Math.atan2(y, x);
     initialBearing = toDegrees(initialBearing);
@@ -167,9 +218,9 @@ const calculateQiblaDirection = (latitude, longitude) => {
 
 const updateCompass = () => {
     console.log(`Qibla Angle: ${qiblaAngle}, Device Heading: ${deviceHeading}`);
-    
-    kaabaNeedle.style.transform = `rotate(${qiblaAngle - deviceHeading}deg)`;
 
+    const needleRotation = (qiblaAngle - deviceHeading + 360) % 360;
+    kaabaNeedle.style.transform = `rotate(${needleRotation}deg)`;
     const directions = [
         { min: 337.5, max: 360, text: 'North-West' },
         { min: 0, max: 22.5, text: 'North' },
@@ -220,7 +271,7 @@ const requestPermissionForDeviceOrientation = async () => {
             console.error('Error requesting device orientation permission:', error);
         }
     } else {
-        initializeDeviceOrientation(); 
+        initializeDeviceOrientation();
     }
 };
 
@@ -245,10 +296,10 @@ const getUserLocation = () => {
                     })
                     .catch(ipError => {
                         console.error("IP geolocation failed:", ipError);
-                        const fallbackLocation = { 
-                            name: 'New York', 
-                            latitude: 40.7128, 
-                            longitude: -74.0060 
+                        const fallbackLocation = {
+                            name: 'New York',
+                            latitude: 40.7128,
+                            longitude: -74.0060
                         };
                         cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
                         fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
@@ -270,7 +321,7 @@ const getUserLocation = () => {
 const init = () => {
     setCurrentDate();
     getUserLocation();
-    
+
     document.querySelectorAll('.prayer-card').forEach(card => {
         card.addEventListener('click', () => {
             card.classList.toggle('flip');
@@ -295,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "“And establish prayer and give zakah.” - Quran 2:110",
         "“Do not walk upon the earth arrogantly.” - Quran 17:37",
         "“Indeed, Allah is Forgiving and Merciful.” - Quran 4:96",
-        "Do good as Allah has done good to you.” - Quran 28:77", 
+        "Do good as Allah has done good to you.” - Quran 28:77",
         "“And let not the hatred of a people prevent you from being just.” - Quran 5:8",
         "“And Allah is the best of planners.” - Quran 3:54"
     ];
@@ -305,7 +356,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
-    
 
     quoteElements.forEach((element, index) => {
         const prayerTime = element.querySelector('.front span:first-child').textContent;
@@ -313,9 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const quoteIndex = (dayOfMonth + index) % quotes.length;
             element.querySelector(".back p").textContent = quotes[quoteIndex];
         }
-
     });
-    
 });
 
 init();

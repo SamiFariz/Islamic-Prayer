@@ -7,7 +7,7 @@
  <link rel="stylesheet" href="style.css">
  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
  <style>
-    #kaaba-icon {
+    /* #kaaba-icon {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -20,11 +20,11 @@
         border-radius: 4px;
         z-index: 21;
         box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
+    } */
 
-    #compass {
+    /* #compass {
         position: relative;
-    }
+    } */
  </style>
 </head>
 <body>
@@ -128,8 +128,24 @@
             </li>
         </ul>
 </section>
+<section id="quran-section">
+    <h2>Quran</h2>
+    <div id="quran-dropdown-container">
+        <label for="surah-select">Select a Surah:</label>
+        <select id="surah-select">
+            <option value="" disabled selected>Choose a Surah</option>
+        </select>
+    </div>
+    <div id="quran-loading" class="loading">
+        <div class="spinner"></div>
+      </div>
+    <div id="surah-display">
+        <h3 id="surah-title"></h3>
+        <p id="surah-content" dir="rtl"></p>
+    </div>
+</section>
  <section id="qibla-section">
- <h2>Qibla Compass</h2>
+ <!-- <h2>Qibla Compass</h2>
  <div id="compass-container">
  <div id="compass">
  <div id="kaaba-icon"></div>
@@ -144,7 +160,7 @@
  </div>
  </div>
  <p id="qibla-direction-text">Calculating Qibla Direction...</p>
- </section>
+ </section> -->
  </main>
  <script src="script.js"></script>
 </body>
