@@ -12,7 +12,24 @@ const surahContent = document.getElementById('surah-content');
 let countdownInterval;
 let qiblaAngle = 0;
 let deviceHeading = 0;
-
+if (!window.fetch) {
+    window.fetch = function (url, options) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open(options.method || 'GET', url);
+            xhr.onload = () => resolve({
+                json: () => Promise.resolve(JSON.parse(xhr.responseText))
+            });
+            xhr.onerror = () => reject(new TypeError('Network request failed'));
+            if (options.headers) {
+                Object.keys(options.headers).forEach(key => {
+                    xhr.setRequestHeader(key, options.headers[key]);
+                });
+            }
+            xhr.send(options.body || null);
+        });
+    };
+}
 const fetchSurahs = async () => {
     try {
         const response = await fetch('http://api.alquran.cloud/v1/surah');
