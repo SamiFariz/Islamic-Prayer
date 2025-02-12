@@ -457,7 +457,14 @@ main {
   }
 }
 @media screen and (max-width: 480px) {
-    body {
+    #quran-section {
+      padding: 1em;
+      max-height: 400px;
+    }
+    #surah-select {
+      width: 100%;
+    }
+  body {
       font-size: 14px;
     }
   
