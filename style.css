@@ -444,11 +444,12 @@ main {
 
 @media screen and (max-width: 480px) {
   #quran-section {
+    padding: 1em;
     max-height: 1000px;
   }
 
   #surah-display {
-    max-height: 300px;
+    max-height: 700px;
   }
 
   #surah-select {
