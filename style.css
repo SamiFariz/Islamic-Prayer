@@ -459,7 +459,7 @@ main {
 @media screen and (max-width: 480px) {
     #quran-section {
       padding: 1em;
-      max-height: 400px;
+      max-height: 1000px;
     }
     #surah-select {
       width: 100%;
