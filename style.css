@@ -340,7 +340,7 @@ main {
   padding: 1.5em;
   border-radius: 15px;
   width: 100%;
-  max-height: 600px;
+  max-height: 2000px;
   display: flex;
   flex-direction: column;
 }
