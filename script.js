@@ -128,8 +128,10 @@ const startCountdown = (nextPrayer) => {
 
 const fetchPrayerTimes = async (latitude, longitude) => {
     try {
+        const method = getCalculationMethod(latitude, longitude);
+
         const response = await fetch(
-            `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2&date=${new Date().toISOString().split('T')[0]}`
+            `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=${method}&date=${new Date().toISOString().split('T')[0]}`
         );
 
         if (!response.ok) {
@@ -142,6 +144,16 @@ const fetchPrayerTimes = async (latitude, longitude) => {
         calculateNextPrayer(data.data.timings);
     } catch (error) {
         handlePrayerTimesError(error);
+    }
+};
+
+const getCalculationMethod = (latitude, longitude) => {
+    if (latitude > 20 && latitude < 60 && longitude > -130 && longitude < -60) {
+        return 2; 
+    } else if (latitude > 35 && latitude < 70 && longitude > -10 && longitude < 40) {
+        return 3; 
+    } else {
+        return 1; 
     }
 };
 
