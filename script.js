@@ -303,8 +303,15 @@ const getUserLocation = () => {
             },
             (error) => {
                 console.warn("Geolocation error:", error.message);
+                cityElement.textContent = "Unable to determine your location. Falling back to IP-based location...";
+
                 fetch('https://ipapi.co/json/')
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`IP geolocation failed: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         fetchPrayerTimes(data.latitude, data.longitude);
                         calculateQiblaDirection(data.latitude, data.longitude);
@@ -313,15 +320,7 @@ const getUserLocation = () => {
                     })
                     .catch(ipError => {
                         console.error("IP geolocation failed:", ipError);
-                        const fallbackLocation = {
-                            name: 'New York',
-                            latitude: 40.7128,
-                            longitude: -74.0060
-                        };
-                        cityElement.textContent = `Fallback Location: ${fallbackLocation.name}`;
-                        fetchPrayerTimes(fallbackLocation.latitude, fallbackLocation.longitude);
-                        calculateQiblaDirection(fallbackLocation.latitude, fallbackLocation.longitude);
-                        requestPermissionForDeviceOrientation();
+                        cityElement.textContent = "Unable to determine your location. Please enable location permissions or enter your location manually.";
                     });
             },
             {
@@ -332,9 +331,9 @@ const getUserLocation = () => {
         );
     } else {
         console.warn('Geolocation not supported');
+        cityElement.textContent = "Geolocation is not supported by your browser. Please enter your location manually.";
     }
 };
-
 const init = () => {
     setCurrentDate();
     getUserLocation();
