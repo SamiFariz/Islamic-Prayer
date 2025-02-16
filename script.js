@@ -32,7 +32,7 @@ if (!window.fetch) {
 }
 const fetchSurahs = async () => {
     try {
-        const response = await fetch('http://api.alquran.cloud/v1/surah');
+        const response = await fetch('https://api.alquran.cloud/v1/surah');
         const data = await response.json();
         populateSurahDropdown(data.data);
     } catch (error) {
