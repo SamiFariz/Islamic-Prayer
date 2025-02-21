@@ -376,7 +376,18 @@ document.addEventListener("DOMContentLoaded", () => {
         "“Indeed, Allah is Forgiving and Merciful.” - Quran 4:96",
         "Do good as Allah has done good to you.” - Quran 28:77",
         "“And let not the hatred of a people prevent you from being just.” - Quran 5:8",
-        "“And Allah is the best of planners.” - Quran 3:54"
+        "“And Allah is the best of planners.” - Quran 3:54",
+        "So which of the favors of your Lord would you deny?” - Quran 55:13",
+        "“Indeed, Allah is with the patient.” - Quran 2:153",
+        "“And He found you lost and guided [you].” - Quran 93:7",
+        "“And He is with you wherever you are.” - Quran 57:4",
+        "“And He is the Hearing, the Knowing.” - Quran 58:1",
+        "“And He is the Forgiving, the Merciful.” - Quran 85:14",
+        "“And He is the Subjugator over His servants.” - Quran 6:61",
+        "“And He is the Wise, the Acquainted.” - Quran 6:18",
+        "“And He is the Exalted in Might, the Wise.” - Quran 6:18",
+        "“And He is the Best of Judges.” - Quran 95:8",
+        "“And He is the Best of Planners.” - Quran 8:30",
     ];
 
     const prayerTimes = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
