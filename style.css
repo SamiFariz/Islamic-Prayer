@@ -301,38 +301,6 @@ main {
     margin-top: 5;
 }
 
-/* #compass {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: rgba(238, 228, 218, 0.9);
-    border: 10px solid rgba(238, 228, 218, 0.9);
-    box-shadow: 0 0 20px rgba(238, 228, 218, 0.9), inset 0 0 15px rgba(0, 0, 0, 0.1);
-    transition: transform 1s ease-in-out;
-}
-
-
-
-.compass-label {
-    position: absolute;
-    font-weight: bold;
-    font-size: 16px;
-    color: var(--text-primary);
-}
-
-.north { top: 10px; left: 50%; transform: translateX(-50%); }
-.east { right: 10px; top: 50%; transform: translateY(-50%); }
-.south { bottom: 10px; left: 50%; transform: translateX(-50%); }
-.west { left: 10px; top: 50%; transform: translateY(-50%); }
-
-#compass-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    padding: 20px;
-} */
 #quran-section {
   margin-top: 2em;
   text-align: center;
@@ -457,14 +425,6 @@ main {
     font-size: 0.9em;
   }
 
-/* @media screen and (max-width: 480px) {
-    #quran-section {
-      padding: 1em;
-      max-height: 1000px;
-    }
-    #surah-select {
-      width: 100%;
-    } */
   body {
       font-size: 14px;
     }
@@ -543,16 +503,7 @@ main {
     .prayer-card.flip .card-face.back {
       transform: rotateY(360deg);
     }
-  
-    /* .kaaba-needle {
-      height: 50px; 
-    } */
-    
-  
-    /* #compass {
-      width: 120px;
-      height: 120px;
-    } */
+
   }
   
   @media screen and (min-width: 481px) and (max-width: 768px) {
