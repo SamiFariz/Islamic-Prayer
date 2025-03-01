@@ -12,6 +12,19 @@ const surahContent = document.getElementById('surah-content');
 let countdownInterval;
 let qiblaAngle = 0;
 let deviceHeading = 0;
+const GA_TRACKING_ID = "G-Y62QK821R1"; 
+
+const script = document.createElement("script");
+script.async = true;
+script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
+document.head.appendChild(script);
+
+script.onload = () => {
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", GA_TRACKING_ID);
+};
 if (!window.fetch) {
     window.fetch = function (url, options) {
         return new Promise((resolve, reject) => {
