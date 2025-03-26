@@ -144,7 +144,7 @@ const fetchPrayerTimes = async (latitude, longitude) => {
         const method = getCalculationMethod(latitude, longitude);
 
         const response = await fetch(
-            `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=${method}&date=${new Date().toISOString().split('T')[0]}`
+            `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=${method}&school=1`
         );
 
         if (!response.ok) {
@@ -411,5 +411,79 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+async function getPrayerTimes() {
+    try {
+        const position = await getCurrentPosition();
+        const { latitude, longitude } = position.coords;
+        
+        // Using the exact same API configuration as Dhikr Connect
+        const urlString = `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2&school=1`;
+        const response = await fetch(urlString);
+        const data = await response.json();
+        
+        if (data.code === 200) {
+            const timings = data.data.timings;
+            const date = data.data.date;
+            
+            // Update prayer times
+            document.getElementById('fajr-time').textContent = timings.Fajr;
+            document.getElementById('sunrise-time').textContent = timings.Sunrise;
+            document.getElementById('dhuhr-time').textContent = timings.Dhuhr;
+            document.getElementById('asr-time').textContent = timings.Asr;
+            document.getElementById('maghrib-time').textContent = timings.Maghrib;
+            document.getElementById('isha-time').textContent = timings.Isha;
+            
+            // Update Hijri date
+            const hijriDate = `${date.hijri.day} ${date.hijri.month.en} ${date.hijri.year}`;
+            document.getElementById('hijri-date').textContent = hijriDate;
+            
+            // Calculate next prayer
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            
+            const prayerTimes = {
+                Fajr: timings.Fajr,
+                Sunrise: timings.Sunrise,
+                Dhuhr: timings.Dhuhr,
+                Asr: timings.Asr,
+                Maghrib: timings.Maghrib,
+                Isha: timings.Isha
+            };
+            
+            let nextPrayer = null;
+            let nextPrayerTime = null;
+            
+            for (const [prayer, time] of Object.entries(prayerTimes)) {
+                const [hours, minutes] = time.split(':').map(Number);
+                const prayerTime = hours * 60 + minutes;
+                
+                if (prayerTime > currentTime) {
+                    nextPrayer = prayer;
+                    nextPrayerTime = time;
+                    break;
+                }
+            }
+            
+            // If no next prayer found, use Fajr of next day
+            if (!nextPrayer) {
+                nextPrayer = 'Fajr';
+                nextPrayerTime = timings.Fajr;
+            }
+            
+            // Update next prayer countdown
+            const nextPrayerElement = document.getElementById('next-prayer-countdown');
+            nextPrayerElement.innerHTML = `
+                Next Prayer: ${nextPrayer}<br>
+                Time until: <span id="countdown">Calculating...</span>
+            `;
+            
+            // Start countdown
+            updateCountdown(nextPrayerTime);
+        }
+    } catch (error) {
+        console.error('Error fetching prayer times:', error);
+        document.getElementById('next-prayer-countdown').textContent = 'Error loading prayer times';
+    }
+}
 
 init();
