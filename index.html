@@ -3,115 +3,119 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Dhikr Connect</title>
+ <meta name="description" content="Dhikr Connect - Your spiritual companion for prayer times, dhikr, and Quran reading">
+ <meta name="theme-color" content="#6366f1">
+ <title>Dhikr Connect - Prayer Times & Spiritual Companion</title>
  <link rel="stylesheet" href="style.css">
- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
- <link rel="icon" type="image/x-icon" href="/assets/image.ico">
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="icon" type="image/png" href="/assets/DC2.png">
+ <link rel="apple-touch-icon" href="/assets/DC2.png">
 </head>
 <body>
  <header>
- <h1>Dhikr Connect</h1>
- <p id="user-city">Location: Loading...</p>
- <p id="current-date">Date: Loading...</p>
- <p id="next-prayer-countdown"></p>
+  <h1>Dhikr Connect</h1>
+  <div class="header-info">
+   <p id="user-city">Location: Loading...</p>
+   <p id="current-date">Date: Loading...</p>
+   <p id="next-prayer-countdown"></p>
+  </div>
  </header>
  <main>
  <div id="loading-spinner" class="loading">
  <div class="spinner"></div>
  </div>
- <section id="prayer-times">
-    <h2>Today's Prayer Times (أوقات الصلاة اليوم
-        )</h2>
-    <ul>
-        <li class="prayer-card" data-quote="quote1">
+ <section id="prayer-times" aria-labelledby="prayer-times-heading">
+    <h2 id="prayer-times-heading">Today's Prayer Times (أوقات الصلاة اليوم)</h2>
+    <div class="prayer-grid">
+        <article class="prayer-card" data-quote="quote1" role="button" tabindex="0" aria-label="Fajr prayer time">
             <div class="card-face front">
-                <span>Fajr</span>
-                <span id="fajr">Loading...</span>
+                <span class="prayer-name">Fajr</span>
+                <span class="prayer-time" id="fajr">Loading...</span>
             </div>
             <div class="card-face back">
                 <p id="quote1">Loading...</p>
             </div>
-        </li>
-        <li class="prayer-card" data-quote="quote2">
+        </article>
+        <article class="prayer-card" data-quote="quote2" role="button" tabindex="0" aria-label="Dhuhr prayer time">
             <div class="card-face front">
-                <span>Dhuhr</span>
-                <span id="dhuhr">Loading...</span>
+                <span class="prayer-name">Dhuhr</span>
+                <span class="prayer-time" id="dhuhr">Loading...</span>
             </div>
             <div class="card-face back">
                 <p id="quote2">Loading...</p>
             </div>
-        </li>
-        <li class="prayer-card" data-quote="quote3">
+        </article>
+        <article class="prayer-card" data-quote="quote3" role="button" tabindex="0" aria-label="Asr prayer time">
             <div class="card-face front">
-                <span>Asr</span>
-                <span id="asr">Loading...</span>
+                <span class="prayer-name">Asr</span>
+                <span class="prayer-time" id="asr">Loading...</span>
             </div>
             <div class="card-face back">
                 <p id="quote3">Loading...</p>
             </div>
-        </li>
-        <li class="prayer-card" data-quote="quote4">
+        </article>
+        <article class="prayer-card" data-quote="quote4" role="button" tabindex="0" aria-label="Maghrib prayer time">
             <div class="card-face front">
-                <span>Maghrib</span>
-                <span id="maghrib">Loading...</span>
+                <span class="prayer-name">Maghrib</span>
+                <span class="prayer-time" id="maghrib">Loading...</span>
             </div>
             <div class="card-face back">
                 <p id="quote4">Loading...</p>
             </div>
-        </li>
-        <li class="prayer-card" data-quote="quote5">
+        </article>
+        <article class="prayer-card" data-quote="quote5" role="button" tabindex="0" aria-label="Isha prayer time">
             <div class="card-face front">
-                <span>Isha</span>
-                <span id="isha">Loading...</span>
+                <span class="prayer-name">Isha</span>
+                <span class="prayer-time" id="isha">Loading...</span>
             </div>
             <div class="card-face back">
                 <p id="quote5">Loading...</p>
             </div>
-        </li>
-    </ul>
-    <section id="dhikr">
-        <h2>Dhikr (ذِكْر)</h2>
-        <ul>
-            <li class="prayer-card" data-quote="رَبِّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ ">
+        </article>
+    </div>
+    <section id="dhikr" aria-labelledby="dhikr-heading">
+        <h2 id="dhikr-heading">Dhikr (ذِكْر)</h2>
+        <div class="dhikr-grid">
+            <article class="prayer-card" data-quote="رَبِّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ " role="button" tabindex="0" aria-label="Morning Dhikr">
                 <div class="card-face front">
-                    <span>Morning Dhikr</span>
-                    <span id="Morning Dhikr"></span>
+                    <span class="prayer-name">Morning Dhikr</span>
+                    <span class="prayer-time" id="Morning Dhikr">Tap to reveal</span>
                 </div>
                 <div class="card-face back">
-                    <p> رَبِّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ </p>
+                    <p>رَبِّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ</p>
                 </div>
-            </li>
-            <li class="prayer-card" data-quote="">
+            </article>
+            <article class="prayer-card" data-quote="" role="button" tabindex="0" aria-label="Evening Dhikr">
                 <div class="card-face front">
-                    <span>Evening Dhikr</span>
-                    <span id="Evening Dhikr"></span>
+                    <span class="prayer-name">Evening Dhikr</span>
+                    <span class="prayer-time" id="Evening Dhikr">Tap to reveal</span>
                 </div>
                 <div class="card-face back">
-                    <p>اللَّهُمَّ اجْعَلْ هَذَا الْيَوْمَ خَيْرًا لِي وَلِأَهْلِي وَارْزُقْنَا بَرَكَتَهُ</p>
+                    <p>اللَّهُمَّ اجْعَلْ هَذَا الْيَوْمَ خَيْرًا لِي وَلِأَهْلِي وَارْزُقْنَا بَرَكَتَهُ</p>
                 </div>
-            </li>
-            <li class="prayer-card" data-quote="">
+            </article>
+            <article class="prayer-card" data-quote="" role="button" tabindex="0" aria-label="After Prayer Dhikr">
                 <div class="card-face front">
-                    <span>After Prayer</span>
-                    <span id="After Prayer"></span>
+                    <span class="prayer-name">After Prayer</span>
+                    <span class="prayer-time" id="After Prayer">Tap to reveal</span>
                 </div>
                 <div class="card-face back">
-                    <p> اللَّهُمَّ اكْفِنِي بِحَلاَلِكَ عَنْ حَرَامِكَ، وَأَغْنِنِي بِفَضْلِكِ عَمَّنْ سِوَاكَ</p>
+                    <p>اللَّهُمَّ اكْفِنِي بِحَلاَلِكَ عَنْ حَرَامِكَ، وَأَغْنِنِي بِفَضْلِكِ عَمَّنْ سِوَاكَ</p>
                 </div>
-            </li>
-            <li class="prayer-card" data-quote="">
+            </article>
+            <article class="prayer-card" data-quote="" role="button" tabindex="0" aria-label="Before Sleep Dhikr">
                 <div class="card-face front">
-                    <span>Before Sleep</span>
-                    <span id="Before sleep"></span>
+                    <span class="prayer-name">Before Sleep</span>
+                    <span class="prayer-time" id="Before sleep">Tap to reveal</span>
                 </div>
                 <div class="card-face back">
-                    <p> اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ</p>
+                    <p>اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ</p>
                 </div>
-            </li>
-        </ul>
+            </article>
+        </div>
 </section>
-<section id="quran-section">
-    <h2>Quran (ٱلْقُرْآن)</h2>
+<section id="quran-section" aria-labelledby="quran-heading">
+    <h2 id="quran-heading">Quran (ٱلْقُرْآن)</h2>
     <div id="quran-dropdown-container">
       <label for="surah-select">Select a Surah:</label>
       <select id="surah-select">

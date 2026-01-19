@@ -76,7 +76,7 @@ const displaySurah = (surah) => {
     surahTitle.textContent = surah.name;
     surahContent.innerHTML = surah.ayahs
         .map(ayah => `
-            <p class="arabic-text" style="font-family: 'Traditional Arabic', serif; font-size: 24px; direction: rtl; text-align: right;">
+            <p class="arabic-text" style="font-family: 'Noto Sans Arabic', 'Traditional Arabic', serif; font-size: 1.5rem; direction: rtl; text-align: right; line-height: 2;">
                 ${ayah.text} ﴿${ayah.numberInSurah}﴾
             </p>
         `)
@@ -86,7 +86,18 @@ const displaySurah = (surah) => {
 surahSelect.addEventListener('change', (event) => {
     const surahNumber = event.target.value;
     if (surahNumber) {
-        fetchSurahContent(surahNumber);
+        // Show loading state
+        const quranLoading = document.getElementById('quran-loading');
+        if (quranLoading) {
+            quranLoading.classList.add('show');
+        }
+        
+        fetchSurahContent(surahNumber).finally(() => {
+            // Hide loading state
+            if (quranLoading) {
+                quranLoading.classList.remove('show');
+            }
+        });
     }
 });
 
@@ -363,11 +374,125 @@ const init = () => {
     setCurrentDate();
     getUserLocation();
 
+    // Enhanced card interactions with modern feedback
     document.querySelectorAll('.prayer-card').forEach(card => {
-        card.addEventListener('click', () => {
+        let isFlipped = false;
+        
+        const handleFlip = () => {
+            isFlipped = !isFlipped;
             card.classList.toggle('flip');
+            
+            // Add haptic feedback if available
+            if ('vibrate' in navigator) {
+                navigator.vibrate(isFlipped ? 30 : 20);
+            }
+            
+            // Add subtle sound effect (optional)
+            if ('AudioContext' in window || 'webkitAudioContext' in window) {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(isFlipped ? 800 : 600, audioContext.currentTime);
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                } catch (e) {
+                    // Audio context failed, continue silently
+                }
+            }
+            
+            // Add visual feedback with ripple effect
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(59, 130, 246, 0.2);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+                z-index: 10;
+            `;
+            
+            const rect = card.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (rect.width / 2 - size / 2) + 'px';
+            ripple.style.top = (rect.height / 2 - size / 2) + 'px';
+            
+            card.appendChild(ripple);
+            
+            // Add subtle particle effect
+            for (let i = 0; i < 3; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: rgba(59, 130, 246, 0.6);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 11;
+                    animation: particleFloat 1s ease-out forwards;
+                `;
+                
+                const angle = (i * 120) * (Math.PI / 180);
+                const distance = 30;
+                const startX = rect.width / 2;
+                const startY = rect.height / 2;
+                const endX = Math.cos(angle) * distance;
+                const endY = Math.sin(angle) * distance;
+                
+                particle.style.left = startX + 'px';
+                particle.style.top = startY + 'px';
+                particle.style.setProperty('--end-x', endX + 'px');
+                particle.style.setProperty('--end-y', endY + 'px');
+                
+                card.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        };
+
+        card.addEventListener('click', handleFlip);
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleFlip();
+            }
+        });
+        
+        // Add touch feedback for mobile
+        card.addEventListener('touchstart', () => {
+            if (!card.classList.contains('flip')) {
+                card.style.transform = 'translateY(-2px) scale(0.98)';
+            } else {
+                card.style.transform = 'rotateY(180deg) scale(0.98)';
+            }
+        });
+        
+        card.addEventListener('touchend', () => {
+            card.style.transform = '';
         });
     });
+
+    // Add smooth scroll behavior for better UX
+    document.documentElement.style.scrollBehavior = 'smooth';
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -403,10 +528,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const dayOfMonth = currentDate.getDate();
 
     quoteElements.forEach((element, index) => {
-        const prayerTime = element.querySelector('.front span:first-child').textContent;
-        if (prayerTimes.includes(prayerTime)) {
-            const quoteIndex = (dayOfMonth + index) % quotes.length;
-            element.querySelector(".back p").textContent = quotes[quoteIndex];
+        const prayerTimeElement = element.querySelector('.front .prayer-name');
+        if (prayerTimeElement) {
+            const prayerTime = prayerTimeElement.textContent;
+            if (prayerTimes.includes(prayerTime)) {
+                const quoteIndex = (dayOfMonth + index) % quotes.length;
+                element.querySelector(".back p").textContent = quotes[quoteIndex];
+            }
         }
     });
 });
